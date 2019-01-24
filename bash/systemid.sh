@@ -22,7 +22,7 @@
 # finding external information relies on curl being installed and relies on live internet connection
 # grep is used to filter ip command output so we don't have extra junk in our output
 # stream editing with sed and awk are used to extract only the data we want displayed
-
+netNumb=$(ip r s | tail -n 1 |sed 's,/.*,,')
 echo "
 Hostname      : $(hostname)
 LAN Address   : $(ip a s ens33|grep 'inet '|awk '{print $2}'|sed 's,/.*,,')
@@ -31,4 +31,6 @@ External IP   : $(curl -s icanhazip.com)
 External Name : $(getent hosts `curl -s icanhazip.com` | awk '{print $2}')
 Router IP     : $(ip route | head -n 1 |awk '{print $3}' )
 Router Name   : $(ip route | head -n 1 |awk '{print $3}' |nslookup |awk '{print $4}' | head -n 1)
+Network Num   : $netNumb
+Network Name  : $(getent networks $netNumb | awk '{print $1}')
 "
