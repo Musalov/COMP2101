@@ -2,7 +2,7 @@
 # This script demonstrates how the shift command works
 
 # loop through the command line arguments
-while [ $# -gt 0 ]; do
+#while [ $# -gt 0 ]; do
   # tell the user how many things are left on the command line
   echo "There are $# things left to process on the command line."
   # display whatever is in $1
@@ -17,7 +17,27 @@ while [ $# -gt 0 ]; do
 #             display an error if the user gave the -d option without a number after it
 # TASK 3: put anything that wasn't recognized on the command line into a variable for use later in the script
   echo "Processing '$1'."
-
+  case $1 in
+    -h )
+    echo 'you added "-h" for help. '
+    ;;
+    -v )
+    echo 'you added "-v" for varbose. '
+    ;;
+    -d )
+      case "$2" in
+        [1-5] )
+        echo "you added -d for debug level $2"
+        ;;
+        *)
+        echo "the -d option must be followed witha number [1-5]. "
+      esac
+    ;;
+    *)
+    err0rs=$1
+    echo "Error: unkown value $err0rs"
+    ;;
+    esac
   # each time through the loop, shift the arguments left
   # this decrements the argument count for us
   shift
@@ -25,5 +45,5 @@ while [ $# -gt 0 ]; do
   echo "Shifted command line, leaving $# things left to process."
   echo "--------------------------"
   # go back to the top of the loop to see if anything is left to work on
-done
+#done
 echo "Done"
