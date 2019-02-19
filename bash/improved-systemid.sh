@@ -22,12 +22,12 @@
 # stream editing with sed and awk are used to extract only the data we want displayed
 # we use the hostname command to get our system name
 my_hostname=$(hostname)
-
+for artInt in ens33 dog cat; do
 # the LAN name is looked up using the LAN address in case it is different from the system name
 # the lan address is pulled out of the ip address command output
 # we are assuming there is only one IPV4 address assigned to this interface
-eno1_ipv4_address=$(ip a s eno1|awk -F '[/ ]+' '/inet /{print $3}')
-eno1_ipv4_hostname=$(getent hosts $eno1_ipv4_address | awk '{print $2}')
+eno1_ipv4_address=$(ip a s $artInt|awk -F '[/ ]+' '/inet /{print $3}')
+eno1_ipv4_hostname=$(getent hosts $ens33_ipv4_address | awk '{print $2}')
 
 # the default route can be found in the route table normally
 # the router name is obtained with getent
@@ -36,9 +36,9 @@ default_router_name=$(getent hosts $default_router_address|awk '{print $2}')
 
 # the network address can be easily pulled from the route table with the ip route list command
 # the network name can be looked up with the getent command
-eno1_network_address=$(ip route list dev eno1 scope link|cut -d ' ' -f 1)
-eno1_network_number=$(cut -d / -f 1 <<<"$eno1_network_address")
-eno1_network_name=$(getent networks $eno1_network_number|awk '{print $1}')
+ens33_network_address=$(ip route list dev $artInt scope link|cut -d ' ' -f 1)
+ens33_network_number=$(cut -d / -f 1 <<<"$ens33_network_address")
+ens33_network_name=$(getent networks $ens33_network_number|awk '{print $1}')
 
 # finding external information relies on curl being installed and relies on live internet connection
 external_address=$(curl -s icanhazip.com)
@@ -60,4 +60,4 @@ Interface eno1 Network Address : $eno1_network_address
 Interface eno1 Network Name    : $eno1_network_name
 
 "
-
+done
