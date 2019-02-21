@@ -21,13 +21,15 @@
 # grep is used to filter ip command output so we don't have extra junk in our output
 # stream editing with sed and awk are used to extract only the data we want displayed
 # we use the hostname command to get our system name
+
+artInt=$(ip link | sort | awk '{print $2}' | head -n 2)
 my_hostname=$(hostname)
-for artInt in ens33 dog cat; do
+for art in $artInt ; do
 # the LAN name is looked up using the LAN address in case it is different from the system name
 # the lan address is pulled out of the ip address command output
 # we are assuming there is only one IPV4 address assigned to this interface
-eno1_ipv4_address=$(ip a s $artInt|awk -F '[/ ]+' '/inet /{print $3}')
-eno1_ipv4_hostname=$(getent hosts $ens33_ipv4_address | awk '{print $2}')
+ens33_ipv4_address=$(ip a s $artInt|awk -F '[/ ]+' '/inet /{print $3}')
+ens33_ipv4_hostname=$(getent hosts $ens33_ipv4_address | awk '{print $2}')
 
 # the default route can be found in the route table normally
 # the router name is obtained with getent
