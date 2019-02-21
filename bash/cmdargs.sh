@@ -28,9 +28,11 @@ while [ $# -gt 0 ]; do
       case "$2" in
         [1-5] )
         echo "You added -d for debug level $2"
+        shift
         ;;
         *)
         echo "The -d option must be followed with a number [1-5]. "
+        shift
       esac
     ;;
     *)

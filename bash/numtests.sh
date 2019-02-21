@@ -33,9 +33,8 @@ fi
 
 echo "Task 3"
 
-remainder=$(( $secondNumber % $firstNumber))
-if [ "$remainder" -eq 0];
-then
+remainder=$(( $secondNumber % $firstNumber ))
+if [ "$remainder" -eq 0 ]; then
 echo "Second number a multiple of first number"
 else
 echo "Second number not a multiple of first number"
