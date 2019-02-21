@@ -54,10 +54,10 @@ Router Name   : $default_router_name
 External IP   : $external_address
 External Name : $external_name
 
-Interface eno1 Address         : $eno1_ipv4_address
-Interface eno1 Name            : $eno1_ipv4_hostname
-Interface eno1 Network Address : $eno1_network_address
-Interface eno1 Network Name    : $eno1_network_name
+Interface ens33 Address         : $ens33_ipv4_address
+Interface ens33 Name            : $ens33_ipv4_hostname
+Interface ens33 Network Address : $ens33_network_address
+Interface ens33 Network Name    : $ens33_network_name
 
 "
 done

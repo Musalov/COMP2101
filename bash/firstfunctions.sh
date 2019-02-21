@@ -19,7 +19,8 @@ function displayusage {
 function errormessage {
   echo "$@" >&2
 }
-
+debug='no'
+verbose='no'
 ##################
 # CLI Processing
 ##################
@@ -27,13 +28,18 @@ function errormessage {
 while [ $# -gt 0 ]; do
   case "$1" in
     -h|--help)
-      displayusage
-      exit 0
+displayusage
+    ;;
+    -d|--debug)
+    debug='yes'
+    ;;
+    -v|--verbose)
+    verbose='yes'
       ;;
     *)
       errormessage "I don't know what '$1' is. Sorry."
       errormessage "$(displayusage)"
-      exit 1
+      exit 0
       ;;
   esac
   shift
