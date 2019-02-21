@@ -40,7 +40,7 @@ default_router_name=$(getent hosts $default_router_address|awk '{print $2}')
 # the network name can be looked up with the getent command
 ens33_network_address=$(ip route list dev $art scope link|cut -d ' ' -f 1|head -n 1)
 ens33_network_number=$(cut -d / -f 1 <<<"$ens33_network_address")
-ens33_network_name=$(getent networks $ens33_network_number|awk '{print $1}')
+ens33_network_name=$(getent networks $ens33_network_number|awk '{print $1}'|tail -n 1)
 
 # finding external information relies on curl being installed and relies on live internet connection
 external_address=$(curl -s icanhazip.com)
