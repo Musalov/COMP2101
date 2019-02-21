@@ -38,7 +38,7 @@ echo "$somesillytext" | grep "^I"
 echo "=========================="
 
 echo "Task 4"
-echo "$somesillytext" | grep "[^.]$"
+echo "$somesillytext" | grep -v '.'
 echo "=========================="
 
 echo "Task 5"
