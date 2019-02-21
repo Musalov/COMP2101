@@ -28,7 +28,7 @@ for art in $artInt ; do
 # the LAN name is looked up using the LAN address in case it is different from the system name
 # the lan address is pulled out of the ip address command output
 # we are assuming there is only one IPV4 address assigned to this interface
-ens33_ipv4_address=$(ip a s $artInt|awk -F '[/ ]+' '/inet /{print $3}')
+ens33_ipv4_address=$(ip a s $art|awk -F '[/ ]+' '/inet /{print $3}')
 ens33_ipv4_hostname=$(getent hosts $ens33_ipv4_address | awk '{print $2}')
 
 # the default route can be found in the route table normally
@@ -38,7 +38,7 @@ default_router_name=$(getent hosts $default_router_address|awk '{print $2}')
 
 # the network address can be easily pulled from the route table with the ip route list command
 # the network name can be looked up with the getent command
-ens33_network_address=$(ip route list dev $artInt scope link|cut -d ' ' -f 1)
+ens33_network_address=$(ip route list dev $art scope link|cut -d ' ' -f 1|head -n 1)
 ens33_network_number=$(cut -d / -f 1 <<<"$ens33_network_address")
 ens33_network_name=$(getent networks $ens33_network_number|awk '{print $1}')
 
@@ -56,10 +56,10 @@ Router Name   : $default_router_name
 External IP   : $external_address
 External Name : $external_name
 
-Interface ens33 Address         : $ens33_ipv4_address
-Interface ens33 Name            : $ens33_ipv4_hostname
-Interface ens33 Network Address : $ens33_network_address
-Interface ens33 Network Name    : $ens33_network_name
+Interface $art Address         : $ens33_ipv4_address
+Interface $art Name            : $ens33_ipv4_hostname
+Interface $art Network Address : $ens33_network_address
+Interface $art Network Name    : $ens33_network_name
 
 "
 done

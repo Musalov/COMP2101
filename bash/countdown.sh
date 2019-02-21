@@ -38,9 +38,24 @@ Usage: ${programName} [-h|--help ] [-w|--waittime waittime] [-n|--waitcount wait
 Default waittime is 1, waitcount is 10
 EOF
 }
+trap 'itera' 2 #capture ^C
 
+itera()
+{
+
+  echo "No interrupt allowed"
+  numberOfSleeps=11
+  sleepCount=$numberOfSleeps
+}
 #### Main Program
+trap 'escape' 3
 
+escape()
+{
+  echo "you reach the exit"
+  numberOfSleeps=0
+  sleepCount=$numberOfSleeps
+}
 # Process command line parameters
 while [ $# -gt 0 ]; do
     case $1 in
@@ -62,6 +77,8 @@ while [ $# -gt 0 ]; do
     esac
     shift
 done
+
+
 
 if [ ! $numberOfSleeps -gt 0 ]; then
     error-exit "$numberOfSleeps is not a valid count of sleeps to wait for signals"

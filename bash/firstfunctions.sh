@@ -44,3 +44,5 @@ displayusage
   esac
   shift
 done
+echo "debug set to $debug"
+echo "verbose set to $verbose"
