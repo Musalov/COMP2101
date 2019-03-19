@@ -30,7 +30,7 @@ userguess=0
 #}
 
 for (( count=1; count < 5; count++ )); do # loop around until they get it right
-  read -p "Attempt # $count Give me a number from 1 to 10: " userguess # ask for a guess
+  read -p "Attempt # $count /4 Give me a number from 1 to 10: " userguess # ask for a guess
   length=$(echo -n $userguess | wc -m)
   if [ "$length" = "0" ] || [ $userguess -gt 10 ] || [ $userguess -lt 1 ]; then
     echo "It is not a number from 1 to 10"
